@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:background="@drawable/fondo_compra_categoria"
+    android:layout_height="match_parent"
+    tools:context=".Categoria">
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="20dp"
+        android:id="@+id/title_bar_layout">
+        <ImageView
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_marginTop="16dp"
+            android:src="@drawable/carrito">
+        </ImageView>
+        <TextView
+            android:id="@+id/tiulo_compras"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_marginLeft="45dp"
+            android:layout_marginTop="16dp"
+            android:text="Agregar compra"
+            android:textColor="@color/color2"
+            android:textStyle="bold"
+            android:textSize="24sp"/>
+
+        <ImageButton
+            android:id="@+id/save_compra"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:layout_alignTop="@+id/tiulo_compras"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:scaleType="centerInside"
+            android:src="@drawable/check_box" />
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_below="@+id/title_bar_layout"
+        android:id="@+id/segundoLinear"
+        android:layout_width="match_parent"
+        android:layout_height="591dp"
+        android:layout_marginVertical="26dp"
+        android:backgroundTint="@color/white"
+        android:orientation="vertical"
+        android:padding="20dp">
+
+        <EditText
+            android:id="@+id/nombre_compra"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_marginVertical="8dp"
+            android:background="@drawable/border2"
+            android:hint="compra"
+            android:layout_marginTop="15dp"
+            android:maxLines="1"
+            android:padding="12dp"
+            android:textColor="@color/black"
+            android:textColorHint="@color/color2"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <EditText
+            android:id="@+id/contenido_compra"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:layout_marginVertical="8dp"
+            android:background="@drawable/border2"
+            android:gravity="top"
+            android:hint="Descripcion"
+            android:minLines="15"
+            android:padding="12dp"
+            android:textColor="@color/black"
+            android:textColorHint="@color/color2"
+            android:textSize="18sp" />
+
+        <EditText
+            android:id="@+id/fecha_compra"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_marginVertical="8dp"
+            android:background="@drawable/border2"
+            android:gravity="top"
+            android:hint="Fecha de la compra"
+            android:minLines="15"
+            android:padding="12dp"
+            android:textColor="@color/black"
+            android:textColorHint="@color/color2"
+            android:textSize="18sp" />
+
+        <EditText
+            android:id="@+id/presupuesto"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_marginVertical="8dp"
+            android:background="@drawable/border2"
+            android:gravity="top"
+            android:hint="Presupuesto"
+            android:minLines="15"
+            android:padding="12dp"
+            android:textColor="@color/black"
+            android:textColorHint="@color/color2"
+            android:textSize="18sp" />
+    </LinearLayout>
+</RelativeLayout>
