@@ -47,7 +47,7 @@
         android:id="@+id/category"
         android:text="Categorias"
         android:textSize="20sp"
-        android:textColor="@color/colordarkprimary"
+        android:textColor="@color/lavender"
         android:layout_below="@+id/title_bar_layout"
         android:padding="16dp">
 
