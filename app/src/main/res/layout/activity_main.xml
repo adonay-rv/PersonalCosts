@@ -70,26 +70,71 @@
 
 
     <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyler_view"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="376dp"
         android:layout_below="@id/searchviewcost"
-        android:padding="16dp"
-        android:id="@+id/recyler_view">
-    </androidx.recyclerview.widget.RecyclerView>
+        android:padding="16dp"></androidx.recyclerview.widget.RecyclerView>
 
-
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/add_category"
+    <RelativeLayout
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginBottom="16dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:src="@drawable/baseline_note_add_24"
-        app:tint="@color/white"
-        app:backgroundTint="@color/colordarkprimary">
-    </com.google.android.material.floatingactionbutton.FloatingActionButton>
+        android:layout_height="100dp"
+        android:layout_below="@id/recyler_view"
+        android:layout_alignParentBottom="true">
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/add_category"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="5dp"
+            android:src="@drawable/baseline_note_add_24"
+            app:backgroundTint="@color/colordarkprimary"
+            app:tint="@color/white"></com.google.android.material.floatingactionbutton.FloatingActionButton>
+
+        <RelativeLayout
+            android:id="@+id/Menu_main"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:background="@drawable/floating_layout"
+            android:layout_alignParentBottom="true">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="5dp"
+                android:orientation="horizontal"
+                android:gravity="center_horizontal"
+                aandroid:background="@android:color/transparent">
+
+                <ImageButton
+                    android:layout_width="30dp"
+                    android:layout_height="50dp"
+                    android:layout_weight="1"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/categories_gastos"
+                    android:background="@android:color/transparent"
+                   ></ImageButton>
+
+                <ImageButton
+                    android:layout_width="30dp"
+                    android:layout_height="50dp"
+                    android:layout_weight="1"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/reportegastos"
+                    android:backgroundTint="@color/lavender"
+                    android:background="@android:color/transparent"></ImageButton>
+
+                <ImageButton
+                    android:layout_width="30dp"
+                    android:layout_height="50dp"
+                    android:layout_weight="1"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/saldodisponible"
+                    android:background="@android:color/transparent"></ImageButton>
+            </LinearLayout>
+        </RelativeLayout>
+    </RelativeLayout>
+
+
 </RelativeLayout>

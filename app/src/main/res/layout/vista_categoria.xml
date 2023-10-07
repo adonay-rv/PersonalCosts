@@ -11,7 +11,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/styleitem_category"
+        android:background="@drawable/style_item_compra"
         android:orientation="vertical"
         android:padding="16dp">
         <RelativeLayout
@@ -24,7 +24,7 @@
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:layout_alignParentTop="true"
-                android:src="@drawable/shopping">
+                android:src="@drawable/listita_category">
             </ImageView>
 
             <TextView
@@ -32,14 +32,14 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/titulo_categoria"
                 android:text="Titulo"
-                android:textColor="@color/color3"
+                android:textColor="@color/colorprimarytext"
                 android:layout_marginLeft="50dp"
                 android:layout_marginTop="8dp"
                 android:textSize="18sp"
                 android:textStyle="bold"/>
 
             <ImageButton
-                android:id="@+id/DeleteCategory"
+                android:id="@+id/DeleteCategoria"
                 android:layout_width="25dp"
                 android:layout_height="25dp"
                 android:layout_alignParentEnd="true"
@@ -47,7 +47,7 @@
                 android:layout_marginEnd="5dp"
                 android:baselineAlignBottom="false"
                 android:scaleType="centerInside"
-                android:src="@drawable/close" />
+                android:src="@drawable/close_azul" />
 
         </RelativeLayout>
 
