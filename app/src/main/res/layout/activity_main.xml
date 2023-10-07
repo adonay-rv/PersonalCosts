@@ -107,28 +107,31 @@
                 android:gravity="center_horizontal">
 
                 <ImageButton
-                    android:layout_width="30dp"
-                    android:layout_height="50dp"
+                    android:layout_width="35dp"
+                    android:layout_height="30dp"
                     android:layout_weight="1"
                     android:scaleType="centerInside"
+                    android:layout_marginTop="10dp"
                     android:src="@drawable/categories_gastos"
                     android:background="@android:color/transparent"
                    ></ImageButton>
 
                 <ImageButton
-                    android:layout_width="30dp"
-                    android:layout_height="50dp"
+                    android:layout_width="35dp"
+                    android:layout_height="30dp"
                     android:layout_weight="1"
                     android:scaleType="centerInside"
                     android:src="@drawable/reportegastos"
+                    android:layout_marginTop="10dp"
                     android:backgroundTint="@color/lavender"
                     android:background="@android:color/transparent"></ImageButton>
 
                 <ImageButton
-                    android:layout_width="30dp"
-                    android:layout_height="50dp"
+                    android:layout_width="35dp"
+                    android:layout_height="30dp"
                     android:layout_weight="1"
                     android:scaleType="centerInside"
+                    android:layout_marginTop="10dp"
                     android:src="@drawable/saldodisponible"
                     android:background="@android:color/transparent"></ImageButton>
             </LinearLayout>
