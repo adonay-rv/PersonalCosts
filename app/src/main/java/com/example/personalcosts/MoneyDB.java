@@ -122,21 +122,28 @@ public class MoneyDB extends SQLiteOpenHelper {
     //Agregar categorias
     void AgregarCategoria(String categoria, String descripcion_categoria){
         SQLiteDatabase database = this.getWritableDatabase();
+        //Se obtiene una instancia de la bd
         ContentValues contentValues = new ContentValues();
+        //crea un objeto para almacenar valores
 
         contentValues.put(COLUMN_CATEGORIA, categoria);
         contentValues.put(COLUMN_DESCRIPCION_CATEGORIA, descripcion_categoria);
         long resultado = database.insert(TABLE_CATEGORIA, null, contentValues);
+        //se agregan nombre de la categoria y descripcion  al objeto
 
         if(resultado == -1){
             Toast.makeText(context, "No se puede agregar la categoria", Toast.LENGTH_SHORT).show();
+        //muestra un mensaje si no se puede mostrar la categoria
         }else{
             Toast.makeText(context, "Categoria agregada", Toast.LENGTH_SHORT).show();
+        //Notifica que la nota ha sido agregada
         }
     }
 
     Cursor Data(){
         String consulta = "SELECT * FROM " + TABLE_CATEGORIA;
+        //Crea una consulta SQL para seleccionar todos los datos de la
+        //categoria
         SQLiteDatabase db = this.getReadableDatabase();
 
         Cursor cursor = null;
