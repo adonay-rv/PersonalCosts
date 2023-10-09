@@ -140,6 +140,12 @@ public class MoneyDB extends SQLiteOpenHelper {
         }
     }
 
+    //Metodo para eliminar la categoria de la bd
+    void BorrarCategoria(String identifier){
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.delete(TABLE_CATEGORIA, COLUMN_CATEGORIA_ID + "=?", new String[]{identifier});
+    }
+
     Cursor Data(){
         String consulta = "SELECT * FROM " + TABLE_CATEGORIA;
         //Crea una consulta SQL para seleccionar todos los datos de la
