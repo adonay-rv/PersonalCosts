@@ -11,7 +11,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/styleitem_category"
+        android:background="@drawable/style_item_compra"
         android:orientation="vertical"
         android:padding="16dp">
         <RelativeLayout
@@ -24,7 +24,7 @@
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:layout_alignParentTop="true"
-                android:src="@drawable/shopping">
+                android:src="@drawable/listita_category">
             </ImageView>
 
             <TextView
@@ -32,14 +32,14 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/titulo_categoria"
                 android:text="Titulo"
-                android:textColor="@color/color3"
+                android:textColor="@color/colorprimarytext"
                 android:layout_marginLeft="50dp"
                 android:layout_marginTop="8dp"
                 android:textSize="18sp"
                 android:textStyle="bold"/>
 
             <ImageButton
-                android:id="@+id/DeleteCategory"
+                android:id="@+id/DeleteCategoria"
                 android:layout_width="25dp"
                 android:layout_height="25dp"
                 android:layout_alignParentEnd="true"
@@ -47,19 +47,32 @@
                 android:layout_marginEnd="5dp"
                 android:baselineAlignBottom="false"
                 android:scaleType="centerInside"
-                android:src="@drawable/close" />
+                android:src="@drawable/close_azul" />
 
         </RelativeLayout>
 
-        <TextView
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/ContenidoCategoria"
-            android:text="Contenido"
-            android:maxLines="2"
-            android:ellipsize="end"
-            android:textSize="17sp"
-            android:layout_marginVertical="4dp"/>
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/ContenidoCategoria"
+                android:layout_width="292dp"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="4dp"
+                android:ellipsize="end"
+                android:maxLines="2"
+                android:text="Contenido"
+                android:textSize="17sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="20dp"
+                android:layout_marginTop="5dp"
+                android:textColor="@color/coloraccent"
+                android:text="Editar"></TextView>
+        </LinearLayout>
     </LinearLayout>
 
 
