@@ -115,5 +115,26 @@ public class MoneyDB extends SQLiteOpenHelper {
 
 // abajo estaran los metodos para hacer el crud y otras funciones
 
+    public boolean BorrarCategoria(int categoriaId) {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        try {
+            int rowsDeleted = db.delete(TABLE_CATEGORIA, COLUMN_CATEGORIA_ID + " = ?", new String[]{String.valueOf(categoriaId)});
+
+            // Verificar si se eliminó al menos una fila
+            if (rowsDeleted > 0) {
+                return true; // Éxito: la categoría se eliminó correctamente
+            }
+        } catch (SQLiteException e) {
+            // Manejar el error, por ejemplo, registrando el error o lanzando una excepción personalizada.
+            e.printStackTrace();
+        } finally {
+            db.close();
+        }
+
+        return false; // Fallo: no se pudo eliminar la categoría
+    }
+
+
 
 }

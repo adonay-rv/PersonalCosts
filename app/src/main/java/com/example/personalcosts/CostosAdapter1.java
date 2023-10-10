@@ -68,7 +68,7 @@ public class CostosAdapter1 extends RecyclerView.Adapter<CostosAdapter1.MyViewHo
         //Id del elemento a eliminar
         MoneyDB moneyDB = new MoneyDB(context);
 
-        moneyDB.BorrarCategoria(identifier);
+        moneyDB.BorrarCategoria(Integer.parseInt(identifier));
         //Se llama al metodo para eliminar la categoria de la bd
 
         if(identifier != null) {
