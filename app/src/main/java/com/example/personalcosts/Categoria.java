@@ -30,15 +30,5 @@ public class Categoria extends AppCompatActivity {
         contentCategoryEditText = findViewById(R.id.category_content_text);
 
         //Boton para agregar una categoria a la bd
-        addCategoryBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                MoneyDB moneyDB = new MoneyDB(Categoria.this);
-                //Se crea una nueva instancia de la bd
-                moneyDB.GuardarCategoria(titleCategoryEditText.getText().toString().trim(),
-                        contentCategoryEditText.getText().toString().trim());
-                //Se toman los valores ingresados y se recorta para omitir los espacios en blanco
-            }
-        });
     }
 }
