@@ -35,7 +35,7 @@ public class Categoria extends AppCompatActivity {
             public void onClick(View view) {
                 MoneyDB moneyDB = new MoneyDB(Categoria.this);
                 //Se crea una nueva instancia de la bd
-                moneyDB.AgregarCategoria(titleCategoryEditText.getText().toString().trim(),
+                moneyDB.GuardarCategoria(titleCategoryEditText.getText().toString().trim(),
                         contentCategoryEditText.getText().toString().trim());
                 //Se toman los valores ingresados y se recorta para omitir los espacios en blanco
             }

@@ -81,7 +81,7 @@ public class MainActivity extends AppCompatActivity {
         ContenidoCategoria.clear();
 
         //Obtiene los datos de la bd
-        Cursor cursor = MDB.Data();
+        Cursor cursor = MD.;
 
         if(cursor.getCount() == 0){
             Toast.makeText(this, "No hay datos", Toast.LENGTH_SHORT).show();
