@@ -133,10 +133,10 @@ public class MoneyDB extends SQLiteOpenHelper {
 
         if(resultado == -1){
             Toast.makeText(context, "No se puede agregar la categoria", Toast.LENGTH_SHORT).show();
-        //muestra un mensaje si no se puede mostrar la categoria
+            //muestra un mensaje si no se puede mostrar la categoria
         }else{
             Toast.makeText(context, "Categoria agregada", Toast.LENGTH_SHORT).show();
-        //Notifica que la nota ha sido agregada
+            //Notifica que la nota ha sido agregada
         }
     }
 
