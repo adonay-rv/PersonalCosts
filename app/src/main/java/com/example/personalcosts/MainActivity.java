@@ -1,106 +1,70 @@
 package com.example.personalcosts;
 
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
-import android.content.Intent;
-import android.database.Cursor;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import android.os.Bundle;
-import android.widget.Button;
-import android.widget.ImageButton;
-import android.widget.Toast;
+import android.graphics.Rect;
+import android.view.View;
+import android.view.ViewTreeObserver;
 
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-
-import java.util.ArrayList;
-import java.util.List;
+import com.example.personalcosts.databinding.ActivityMainBinding;
 
 public class MainActivity extends AppCompatActivity {
 
-    //Se declaran las variables de instancia para los elementos de la interfaz
-    //y la bd
-    ImageButton iconosalir, menu_category;
-    FloatingActionButton addCategoryBtn;
-    RecyclerView recyclerView;
+    ActivityMainBinding binding;
+    View rootView;  // Agregamos una referencia a la vista raíz
 
-    MoneyDB MDB;
-    ArrayList<String> idCategoria, NombreCategoria, ContenidoCategoria;
-    //Listas para guardar los datos de las categorias
-    CostosAdapter1 costosAdapter1; //adaptador para el recyclerView
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        binding = ActivityMainBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
+        replaceFragment(new HomeFragment());
 
-        iconosalir = findViewById(R.id.salirsesion);
-        addCategoryBtn = findViewById(R.id.add_category);
-        recyclerView = findViewById(R.id.recyler_view);
-        menu_category = findViewById(R.id.Menu_category);
+        // Agregamos un oyente para detectar el teclado
+        rootView = getWindow().getDecorView().getRootView();
+        rootView.getViewTreeObserver().addOnGlobalLayoutListener(() -> {
+            Rect r = new Rect();
+            rootView.getWindowVisibleDisplayFrame(r);
+            int screenHeight = rootView.getHeight();
+            int keypadHeight = screenHeight - r.bottom;
 
-        //Abre el activity para agregar una categoria
-        addCategoryBtn.setOnClickListener((view) -> {Intent intent = new Intent(MainActivity.this, Categoria.class);
-        startActivity(intent);
-        });
-
-        menu_category.setOnClickListener((view) -> {Intent intent = new Intent(MainActivity.this, MainActivity.class);
-            startActivity(intent);
-        });
-
-        //se inicializan la bd y las listas para almacenar los datos
-        //de las categorias
-        MDB =  new MoneyDB(MainActivity.this);
-        idCategoria = new ArrayList<>();
-        NombreCategoria = new ArrayList<>();
-        ContenidoCategoria = new ArrayList<>();
-
-        //inicializa el adaptador y se configura el RecyclerView
-        costosAdapter1 = new CostosAdapter1(MainActivity.this, idCategoria, NombreCategoria, ContenidoCategoria);
-        recyclerView.setAdapter(costosAdapter1);
-        recyclerView.setLayoutManager(new LinearLayoutManager(MainActivity.this));
-
-        //Se cargan los datos dentro de las listas y se actuliza el recyclerview
-        NuevaData();
-
-        //Se configura el boton para que permita al usuario cerrar sesion
-        iconosalir.setOnClickListener((v) -> {
-            new AlertDialog.Builder(MainActivity.this).setTitle("Cerrar sesión").
-                    setMessage("¿Esta seguro de cerrar sesión?").setPositiveButton(android.R.string.yes,
-                            (dialog, which) ->
-                            {
-                                startActivity(new Intent(MainActivity.this, LoginActivity.class));
-                            }).setNegativeButton(android.R.string.cancel, null).setIcon(R.drawable.warning).show();
-        });
-    }
-
-    void NuevaData(){
-        // Limpia las listas antes de agregar los datos
-        idCategoria.clear();
-        NombreCategoria.clear();
-        ContenidoCategoria.clear();
-
-        //Obtiene los datos de la bd
-        Cursor cursor = MDB.Data();
-
-        if(cursor.getCount() == 0){
-            Toast.makeText(this, "No hay datos", Toast.LENGTH_SHORT).show();
-        }else{
-            while (cursor.moveToNext()){
-                idCategoria.add(cursor.getString(0));
-                NombreCategoria.add(cursor.getString(1));
-                ContenidoCategoria.add(cursor.getString(2));
+            // Si la altura del teclado es mayor que un cierto umbral, oculta el menú
+            if (keypadHeight > screenHeight * 0.20) {
+                binding.bottomNavigationView.setVisibility(View.GONE);
+            } else {
+                binding.bottomNavigationView.setVisibility(View.VISIBLE);
             }
-            costosAdapter1.notifyDataSetChanged();
-        }
-    }
-    @Override
-    public void onBackPressed() {
-        finishAffinity();
+        });
+
+
+        binding.bottomNavigationView.setOnItemSelectedListener(item -> {
+
+            int itemId = item.getItemId();
+
+            if (itemId == R.id.home_) {
+                replaceFragment(new HomeFragment());
+            } else if (itemId == R.id.category_) {
+                replaceFragment(new CategoryFragment());
+            } else if (itemId == R.id.historial_) {
+                replaceFragment(new HistorialFragment());
+            }
+            return true;
+        });
     }
 
-    protected void onResume() {
-        super.onResume();
-        NuevaData(); //Actualiza los datos cuando se reanuda la actividad
+    private void replaceFragment(Fragment fragment) {
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.frame_layout, fragment);
+        fragmentTransaction.commit();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        rootView.getViewTreeObserver().removeOnGlobalLayoutListener(null);
     }
 }
