@@ -5,8 +5,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/fondo1"
     tools:context=".LoginActivity">
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="400dp"
+        android:background="@drawable/fondo"/>
 
     <ImageView
         android:id="@+id/login_icon"
@@ -14,7 +18,7 @@
         android:layout_height="150dp"
         android:layout_centerHorizontal="true"
         android:src="@drawable/login"
-        android:layout_marginVertical="60dp"/>
+        android:layout_marginVertical="40dp"/>
 
     <!-- <LinearLayout
         android:id="@+id/messageWelcome"
@@ -81,11 +85,11 @@
                 android:drawablePadding="8dp"/>
 
             <com.google.android.material.button.MaterialButton
-                android:layout_width="match_parent"
+                android:layout_width="180dp"
                 android:layout_height="50dp"
                 android:layout_gravity="center"
                 android:id="@+id/btnCreateAccount"
-                android:text="Iniciar sesion"
+                android:text="Iniciar sesión"
                 android:layout_marginTop="20dp"
                 android:backgroundTint="@color/colordarkprimary"
                 app:backgroundTint="@null"

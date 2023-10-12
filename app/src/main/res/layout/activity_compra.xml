@@ -26,18 +26,10 @@
             android:layout_marginLeft="45dp"
             android:layout_marginTop="16dp"
             android:text="Agregar compra"
-            android:textColor="@color/color2"
+            android:textColor="@color/colorprimarytext"
             android:textStyle="bold"
-            android:textSize="24sp"/>
-
-        <ImageButton
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:id="@+id/save_compra"
-            android:src="@drawable/baseline_done_24"
-            android:layout_alignParentEnd="true"
-            android:layout_centerVertical="true"
-            android:background="?attr/selectableItemBackgroundBorderless" />
+            android:textSize="24sp"
+            android:fontFamily="@font/nunito_sans"/>
     </RelativeLayout>
 
     <LinearLayout
@@ -55,56 +47,63 @@
             android:layout_width="match_parent"
             android:layout_height="60dp"
             android:layout_marginVertical="8dp"
-            android:background="@drawable/border2"
-            android:hint="compra"
+            android:background="@drawable/border_itemc"
+            android:hint="Compra"
             android:layout_marginTop="15dp"
             android:maxLines="1"
             android:padding="12dp"
-            android:textColor="@color/black"
-            android:textColorHint="@color/color2"
-            android:textSize="20sp"
-            android:textStyle="bold" />
+            android:textSize="18sp"
+            android:fontFamily="@font/nunito_sans"/>
 
         <EditText
             android:id="@+id/contenido_compra"
             android:layout_width="match_parent"
             android:layout_height="100dp"
             android:layout_marginVertical="8dp"
-            android:background="@drawable/border2"
+            android:background="@drawable/border_itemc"
             android:gravity="top"
             android:hint="Descripcion"
             android:minLines="15"
             android:padding="12dp"
-            android:textColor="@color/black"
-            android:textColorHint="@color/color2"
-            android:textSize="18sp" />
+            android:textSize="18sp"
+            android:fontFamily="@font/nunito_sans"/>
 
         <EditText
             android:id="@+id/fecha_compra"
             android:layout_width="match_parent"
             android:layout_height="60dp"
             android:layout_marginVertical="8dp"
-            android:background="@drawable/border2"
-            android:gravity="top"
+            android:background="@drawable/border_itemc"
             android:hint="Fecha de la compra"
             android:minLines="15"
             android:padding="12dp"
-            android:textColor="@color/black"
-            android:textColorHint="@color/color2"
-            android:textSize="18sp" />
+            android:textSize="18sp"
+            android:fontFamily="@font/nunito_sans"
+            android:inputType="date"/>
 
         <EditText
             android:id="@+id/presupuesto"
             android:layout_width="match_parent"
             android:layout_height="60dp"
             android:layout_marginVertical="8dp"
-            android:background="@drawable/border2"
-            android:gravity="top"
-            android:hint="Presupuesto"
-            android:minLines="15"
-            android:padding="12dp"
-            android:textColor="@color/black"
-            android:textColorHint="@color/color2"
-            android:textSize="18sp" />
+            android:inputType="numberDecimal"
+            android:textSize="18sp"
+            android:fontFamily="@font/nunito_sans"
+            android:background="@drawable/border_itemc"
+            android:hint="$ Monto"
+            android:padding="12dp" />
+
+
+        <Button
+            android:id="@+id/save_compra"
+            android:layout_width="110dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="40dp"
+            android:backgroundTint="@color/colordarkprimary"
+            android:text="Agregar"
+            android:fontFamily="@font/nunito_sans"
+            android:textColor="@color/white"/>
+
     </LinearLayout>
 </RelativeLayout>

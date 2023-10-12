@@ -15,7 +15,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 public class CategoryFragment extends Fragment {
 
     FloatingActionButton addCategoryBtn;
-    RecyclerView recyclerView;
+    RecyclerView recyclerViewCategoria;
 
     MoneyDB MDB;
 
@@ -30,7 +30,7 @@ public class CategoryFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         addCategoryBtn = view.findViewById(R.id.add_category);
-        recyclerView = view.findViewById(R.id.recyler_view);
+        recyclerViewCategoria = view.findViewById(R.id.recyler_viewCategoria);
 
 
         //Abre el activity para agregar una categoria

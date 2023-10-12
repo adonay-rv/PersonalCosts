@@ -17,11 +17,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
-            android:layout_marginTop="16dp"
             android:text="Crear nueva categoría"
             android:textColor="@color/colordarkprimary"
             android:textStyle="bold"
-            android:textSize="24sp"/>
+            android:textSize="24sp"
+            android:fontFamily="@font/nunito_sans"/>
 
     </RelativeLayout>
 
@@ -30,37 +30,44 @@
         android:layout_below="@+id/title_bar_layout"
         android:id="@+id/segundoLinear"
         android:layout_width="match_parent"
-        android:layout_height="591dp"
-        android:layout_marginVertical="26dp"
+        android:layout_height="wrap_content"
         android:backgroundTint="@color/white"
         android:orientation="vertical"
         android:padding="5dp">
 
-        <RelativeLayout
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/icon_category"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_gravity="center"
+                android:padding="8dp"/>
 
             <EditText
                 android:id="@+id/category_title_text"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
                 android:layout_marginVertical="8dp"
-                android:hint="Nombre de la categoria"
+                android:hint="Nombre de la categoría"
                 android:layout_marginTop="15dp"
                 android:maxLines="1"
-                android:padding="12dp"
                 android:textColor="@color/black"
                 android:textColorHint="@color/colorsecondarytext"
                 android:textSize="20sp"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                android:fontFamily="@font/nunito_sans"/>
 
-        </RelativeLayout>
+        </LinearLayout>
 
 
         <EditText
             android:id="@+id/category_content_text"
             android:layout_width="match_parent"
-            android:layout_height="150dp"
+            android:layout_height="250dp"
             android:layout_marginVertical="8dp"
             android:background="@drawable/border_itemc"
             android:gravity="top"
@@ -69,14 +76,124 @@
             android:padding="12dp"
             android:textColor="@color/black"
             android:textColorHint="@color/colorsecondarytext"
-            android:textSize="18sp" />
+            android:textSize="18sp"
+            android:fontFamily="@font/nunito_sans"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:layout_marginTop="25dp">
+
+            <ImageButton
+                android:id="@+id/icon_comida"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:adjustViewBounds="true"
+                android:backgroundTint="#00FFFFFF"
+                android:elevation="2dp"
+                android:scaleType="centerCrop"
+                android:visibility="visible"
+                app:srcCompat="@drawable/icon_comida" />
+
+            <ImageButton
+                android:id="@+id/icon_compras"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:adjustViewBounds="true"
+                android:backgroundTint="#00FFFFFF"
+                android:elevation="2dp"
+                android:scaleType="centerCrop"
+                android:visibility="visible"
+                app:srcCompat="@drawable/icon_compras" />
+
+            <ImageButton
+                android:id="@+id/icon_hogar"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:adjustViewBounds="true"
+                android:backgroundTint="#00FFFFFF"
+                android:elevation="2dp"
+                android:scaleType="centerCrop"
+                android:visibility="visible"
+                app:srcCompat="@drawable/icon_hogar" />
+
+            <ImageButton
+                android:id="@+id/icon_salud"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:adjustViewBounds="true"
+                android:backgroundTint="#00FFFFFF"
+                android:elevation="2dp"
+                android:scaleType="centerCrop"
+                android:visibility="visible"
+                app:srcCompat="@drawable/icon_salud" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center">
+
+            <ImageButton
+                android:id="@+id/icon_transporte"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:adjustViewBounds="true"
+                android:backgroundTint="#00FFFFFF"
+                android:elevation="2dp"
+                android:scaleType="centerCrop"
+                android:visibility="visible"
+                app:srcCompat="@drawable/icon_transporte" />
+
+            <ImageButton
+                android:id="@+id/icon_viajes"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:adjustViewBounds="true"
+                android:backgroundTint="#00FFFFFF"
+                android:elevation="2dp"
+                android:scaleType="centerCrop"
+                android:visibility="visible"
+                app:srcCompat="@drawable/icon_viajes" />
+
+            <ImageButton
+                android:id="@+id/icon_mascota"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:adjustViewBounds="true"
+                android:backgroundTint="#00FFFFFF"
+                android:elevation="2dp"
+                android:scaleType="centerCrop"
+                android:visibility="visible"
+                app:srcCompat="@drawable/icon_mascota" />
+
+            <ImageButton
+                android:id="@+id/icon_otro"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:adjustViewBounds="true"
+                android:backgroundTint="#00FFFFFF"
+                android:elevation="2dp"
+                android:scaleType="centerCrop"
+                android:visibility="visible"
+                app:srcCompat="@drawable/icon_otro" />
+
+
+        </LinearLayout>
 
         <Button
             android:id="@+id/save_category_btn"
             android:layout_width="110dp"
             android:layout_height="wrap_content"
-            android:text="Añadir"
+            android:layout_gravity="center"
+            android:layout_marginTop="50dp"
             android:backgroundTint="@color/colordarkprimary"
-            android:layout_gravity="center"/>
+            android:text="Añadir"
+            android:fontFamily="@font/nunito_sans"
+            android:textColor="@color/white"/>
     </LinearLayout>
 </RelativeLayout>

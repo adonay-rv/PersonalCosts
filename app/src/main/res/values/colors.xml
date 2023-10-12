@@ -6,7 +6,7 @@
     <color name="color2">#366ca7</color>
     <color name="color3">#f1b6da</color>
     <color name="color4">#8695ff</color>
-    <color name="color5">#12b262</color>
+    <color name="color5">#317A45</color>
 
     <color name="colordarkprimary">#183B61</color>
     <color name="colorlightprimary">#3989E1</color>
@@ -17,4 +17,5 @@
     <color name="colortext_icons">#FFFFFF</color>
     <color name="colorStars">#FFBD42</color>
     <color name="lavender">#8692f7</color>
+    <color name="delete">#C2272C</color>
 </resources>

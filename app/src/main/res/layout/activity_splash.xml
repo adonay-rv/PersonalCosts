@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:orientation="vertical"
-    android:background="@drawable/fondo_splash"
+    android:background="@color/lavender"
     android:gravity="center"
     android:layout_height="match_parent"
     tools:context=".SplashActivity">
@@ -19,7 +19,7 @@
     <ProgressBar
         android:layout_width="35dp"
         android:layout_height="35dp"
-        android:indeterminateTint="@color/black"
+        android:indeterminateTint="@color/white"
         android:layout_marginTop="16dp">
     </ProgressBar>
 </LinearLayout>
