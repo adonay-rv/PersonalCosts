@@ -1,18 +1,15 @@
 package com.example.personalcosts;
 
-import static android.app.Activity.RESULT_OK;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
 import android.provider.MediaStore;
@@ -25,28 +22,45 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 
-import android.Manifest;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
+
 
 public class HomeFragment extends Fragment {
 
     ImageButton iconosalir;
     ImageView imagePerfil;
 
-    private final int REQUEST_PERMISSION = 123;
-    Uri selectedImageUri;
 
 
-    private TextView homeSaldoTextView;
-    private Button btnAddPresupuesto;
-    private Button btnResPresupuesto;
+    private TextView homeSaldoTextView, nameUserTextView;
+    private Button btnAddPresupuesto, btnResPresupuesto;
+
+    //Para mostrar nombre del usuario
+    FirebaseAuth auth = FirebaseAuth.getInstance();
+    FirebaseUser user = auth.getCurrentUser();
+
+    //Para guardar imagen en FireBase Storge
+    FirebaseStorage storage = FirebaseStorage.getInstance();
+    StorageReference storageRef = storage.getReference();
+
+    //imagen
+    private ActivityResultLauncher<Intent> pickImageLauncher;
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_home, container, false);
+
+
     }
 
     public void onViewCreated(View view, Bundle savedInstanceState) {
@@ -54,6 +68,20 @@ public class HomeFragment extends Fragment {
 
         iconosalir = view.findViewById(R.id.salirsesion);
         imagePerfil = view.findViewById(R.id.imagePerfil);
+        nameUserTextView = view.findViewById(R.id.name_user);
+
+        //Para mostrar el nombre del usuario
+        if (user != null) {
+            String userName = user.getDisplayName();
+
+            if (userName != null && !userName.isEmpty()) {
+                nameUserTextView.setText(userName);
+            } else {
+                nameUserTextView.setText("Nombre de usuario no disponible");
+            }
+        } else {
+            nameUserTextView.setText("Usuario no autenticado");
+        }
 
 
         //Se configura el boton para que permita al usuario cerrar sesion
@@ -65,18 +93,35 @@ public class HomeFragment extends Fragment {
                                 startActivity(new Intent(requireContext(), LoginActivity.class));
                             }).setNegativeButton(android.R.string.cancel, null).setIcon(R.drawable.warning).show();
         });
-        imagePerfil.setOnClickListener(v -> {
-            if (selectedImageUri != null) {
-                mostrarOpcionesImagen();
-            } else {
-                if (ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.READ_EXTERNAL_STORAGE)
-                        == PackageManager.PERMISSION_GRANTED) {
-                    abrirGaleria();
-                } else {
-                    ActivityCompat.requestPermissions(requireActivity(), new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, REQUEST_PERMISSION);
+
+        //Para subir la imagen
+        pickImageLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
+            if (result.getResultCode() == Activity.RESULT_OK) {
+                Intent data = result.getData();
+                if (data != null) {
+                    Uri selectedImageUri = data.getData();
+                    if (selectedImageUri != null) {
+                        StorageReference imageRef = storageRef.child("profile_images/" + user.getUid() + ".jpg");
+                        UploadTask uploadTask = imageRef.putFile(selectedImageUri);
+                        uploadTask.addOnCompleteListener(requireActivity(), task -> {
+                            if (task.isSuccessful()) {
+                                Toast.makeText(requireContext(), "Imagen subida con éxito", Toast.LENGTH_SHORT).show();
+                            } else {
+                                Toast.makeText(requireContext(), "Error al subir la imagen", Toast.LENGTH_SHORT).show();
+                            }
+                        });
+                    }
                 }
             }
         });
+
+        imagePerfil.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showImageSelectionDialog();
+            }
+        });
+
 
         homeSaldoTextView = view.findViewById(R.id.home_saldo);
         btnAddPresupuesto = view.findViewById(R.id.btn_addPresupuesto);
@@ -95,33 +140,7 @@ public class HomeFragment extends Fragment {
                 showResPresupuestoDialog();
             }
         });
-    }
 
-    private ActivityResultLauncher<Intent> getContent =
-            registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
-                if (result.getResultCode() == RESULT_OK && result.getData() != null) {
-                    Uri selectedImage = result.getData().getData();
-                    // Maneja la imagen seleccionada según sea necesario.
-                    imagePerfil.setImageURI(selectedImage);
-                }
-            });
-    private void abrirGaleria() {
-        Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-        getContent.launch(intent);
-    }
-
-    private void mostrarOpcionesImagen() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(requireContext());
-        builder.setTitle("Imagen de perfil");
-        builder.setMessage("¿Qué deseas hacer con la imagen?");
-        builder.setPositiveButton("Cambiar", (dialog, which) -> abrirGaleria());
-        builder.setNegativeButton("Borrar", (dialog, which) -> {
-            // Si el usuario elige borrar, elimina la URI de la imagen y establece la imagen en blanco o null
-            selectedImageUri = null;
-            imagePerfil.setImageURI(null);
-        });
-        builder.setNeutralButton("Cancelar", null);
-        builder.show();
     }
     private void showAddPresupuestoDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(requireContext());
@@ -180,6 +199,28 @@ public class HomeFragment extends Fragment {
                 dialog.cancel();
             }
         });
+        builder.show();
+    }
+    private void showImageSelectionDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(requireContext());
+        builder.setTitle("Seleccionar Imagen");
+
+        builder.setPositiveButton("Desde la Galería", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                // Abre la galería para seleccionar una imagen
+                Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                pickImageLauncher.launch(intent);
+            }
+        });
+
+        builder.setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.cancel();
+            }
+        });
+
         builder.show();
     }
 

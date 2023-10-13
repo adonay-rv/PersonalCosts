@@ -88,13 +88,21 @@
                 android:layout_width="180dp"
                 android:layout_height="50dp"
                 android:layout_gravity="center"
-                android:id="@+id/btnCreateAccount"
+                android:id="@+id/btnLogin"
                 android:text="Iniciar sesión"
                 android:layout_marginTop="20dp"
                 android:backgroundTint="@color/colordarkprimary"
                 app:backgroundTint="@null"
                 android:textSize="16sp"
                 android:textColor="@color/white"/>
+
+            <ProgressBar
+                android:id="@+id/progressBar"
+                android:layout_width="24dp"
+                android:layout_height="64dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="15dp"
+                android:visibility="gone" />
 
         </LinearLayout>
 
