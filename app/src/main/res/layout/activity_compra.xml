@@ -68,31 +68,6 @@
             android:textSize="18sp"
             android:fontFamily="@font/nunito_sans"/>
 
-        <EditText
-            android:id="@+id/fecha_compra"
-            android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:layout_marginVertical="8dp"
-            android:background="@drawable/border_itemc"
-            android:hint="Fecha de la compra"
-            android:minLines="15"
-            android:padding="12dp"
-            android:textSize="18sp"
-            android:fontFamily="@font/nunito_sans"
-            android:inputType="date"/>
-
-        <EditText
-            android:id="@+id/presupuesto"
-            android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:layout_marginVertical="8dp"
-            android:inputType="numberDecimal"
-            android:textSize="18sp"
-            android:fontFamily="@font/nunito_sans"
-            android:background="@drawable/border_itemc"
-            android:hint="$ Monto"
-            android:padding="12dp" />
-
 
         <Button
             android:id="@+id/save_compra"

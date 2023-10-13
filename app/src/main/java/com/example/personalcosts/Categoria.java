@@ -1,7 +1,11 @@
 package com.example.personalcosts;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+
+import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
+import android.text.Html;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -12,15 +16,16 @@ import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.Timestamp;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.QuerySnapshot;
 
 
 public class Categoria extends AppCompatActivity {
-    //se declaran las variables de instancia para los elementos
-    //de la interfaz
-    EditText titleCategoryEditText, contentCategoryEditText;
-    Button addCategoryBtn;
-
-    String Category_Identify;
+    EditText titlenote, contentNota;
+    Button GuardarNota;
+    String title, content, NoteIdentification;
+    TextView TitleAE;
     boolean ModoEdicion = false;
 
     @Override
@@ -28,35 +33,48 @@ public class Categoria extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_categoria);
         //Se inicializan los elementos de la interfaz
-        titleCategoryEditText = findViewById(R.id.category_title_text);
-        addCategoryBtn = findViewById(R.id.save_category_btn);
-        contentCategoryEditText = findViewById(R.id.category_content_text);
+        titlenote = findViewById(R.id.category_title_text);
+        GuardarNota = findViewById(R.id.save_category_btn);
+        contentNota = findViewById(R.id.category_content_text);
+        TitleAE = findViewById(R.id.page_title);
 
-        addCategoryBtn.setOnClickListener(v -> GuardarCategoria());
+        GuardarNota.setOnClickListener(v -> GuardarCategoria());
 
-        iconsView();
+        title = getIntent().getStringExtra("title");
+        content = getIntent().getStringExtra("content");
+        NoteIdentification = getIntent().getStringExtra("noteIdentification");
 
-        //Boton para agregar una categoria a la bd]
+        if (NoteIdentification != null && !NoteIdentification.isEmpty()) {
+            ModoEdicion = true;
+        }
+
+        titlenote.setText(title);
+        contentNota.setText(content);
+
+        if (ModoEdicion) {
+            TitleAE.setText("Editar nota");
+        }
     }
 
     void GuardarCategoria() {
-        String tilecategoriaEditText = titleCategoryEditText.getText().toString();
-        String contentcategoriaEditText = contentCategoryEditText.getText().toString();
+        String tilenoteEditText = titlenote.getText().toString();
+        String contentNotaEditText = contentNota.getText().toString();
 
-        if(tilecategoriaEditText.isEmpty()) {
+        if(tilenoteEditText.isEmpty()) {
             Toast.makeText(Categoria.this, "El titulo es requerido", Toast.LENGTH_SHORT).show();
             return;
-        }else if(contentcategoriaEditText.isEmpty()){
+        }else if(contentNotaEditText.isEmpty()){
             Toast.makeText(Categoria.this, "No hay contenido para guardar", Toast.LENGTH_SHORT).show();
             return;
         }
         ClassDB classDB = new ClassDB();
-        classDB.setTitle(tilecategoriaEditText);
-        classDB.setContent(contentcategoriaEditText);
-        GuardarCategoriaFirebase(classDB);
+        classDB.setTitle(tilenoteEditText);
+        classDB.setContent(contentNotaEditText);
+
+        GuardarNotaFirebase(classDB);
     }
 
-    void GuardarCategoriaEnGuardarNotaFirebase(ClassDB classDB){
+    void GuardarNotaEnGuardarNotaFirebase(ClassDB classDB){
         DocumentReference documentReference;
         documentReference = Utilidad.getCollectionReferenceForCategory().document();
         documentReference.set(classDB).addOnCompleteListener(new OnCompleteListener<Void>() {
@@ -64,7 +82,7 @@ public class Categoria extends AppCompatActivity {
             public void onComplete(@NonNull Task<Void> task) {
 
                 if(task.isSuccessful()){
-                    Toast.makeText(Categoria.this,"Categoria guardada", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(Categoria.this,"categoria guardada", Toast.LENGTH_SHORT).show();
                     finish();
                 }else{
                     Toast.makeText(Categoria.this, "No se puede guardar la categoria", Toast.LENGTH_SHORT).show();
@@ -72,15 +90,15 @@ public class Categoria extends AppCompatActivity {
             }
         });
     }
-    void GuardarCategoriaFirebase(ClassDB classDB) { //Guarda los datos en el firestone
+    void GuardarNotaFirebase(ClassDB classDB) { //Guarda los datos en el firestone
         DocumentReference documentReference; //Obtiene la referencia a la coleccion de notas utilizadas
         if (ModoEdicion) {
-            documentReference = Utilidad.getCollectionReferenceForCategory().document(Category_Identify);
+            documentReference = Utilidad.getCollectionReferenceForCategory().document(NoteIdentification);
             documentReference.set(classDB).addOnCompleteListener(new OnCompleteListener<Void>() {
                 @Override
                 public void onComplete(@NonNull Task<Void> task) {
                     if (task.isSuccessful()) {
-                        Toast.makeText(Categoria.this, "Categoria editada", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(Categoria.this, "categoria editada", Toast.LENGTH_SHORT).show();
                         finish();
                     } else {
                         Toast.makeText(Categoria.this, "No se pueden guardar los cambios", Toast.LENGTH_SHORT).show();
@@ -94,7 +112,7 @@ public class Categoria extends AppCompatActivity {
                     if (task.isSuccessful()) {
                         QuerySnapshot querySnapshot = task.getResult();
                         if (querySnapshot.isEmpty()) {
-                            GuardarCategoriaEnGuardarNotaFirebase(classDB);
+                            GuardarNotaEnGuardarNotaFirebase(classDB);
                         } else {
                             Toast.makeText(Categoria.this, "No puede guardar una categoria con un titulo ya existente", Toast.LENGTH_LONG).show();
                         }
@@ -106,7 +124,7 @@ public class Categoria extends AppCompatActivity {
         }
     }
 
-    public void iconsView(){
+        public void iconsView(){
         //Para cuando seleccione un icono
         ImageView selectedImageView = findViewById(R.id.icon_category);
         ImageButton iconComida = findViewById(R.id.icon_comida);

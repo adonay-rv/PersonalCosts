@@ -28,8 +28,8 @@ public class ProjectAdapter extends FirestoreRecyclerAdapter<ClassDB, ProjectAda
 
     @Override
     protected void onBindViewHolder(@NonNull ProjectAdapter.NoteViewHolder holder, @SuppressLint("RecyclerView") int position, @NonNull ClassDB classDB) {
-        holder.title_txt.setText(classDB.title);
-        holder.content_txt.setText(classDB.content);
+        holder.titleTextView.setText(classDB.title);
+        holder.contentTextView.setText(classDB.content);
 
         holder.itemView.setOnClickListener((v) -> {
             Intent intent = new Intent(context, Categoria.class);
@@ -40,53 +40,68 @@ public class ProjectAdapter extends FirestoreRecyclerAdapter<ClassDB, ProjectAda
             context.startActivity(intent);
         });
 
-        holder.DeleteBtn.setOnClickListener(new View.OnClickListener(){
+        holder.DeleteBtn.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
+            public void onClick(View v) {
                 try{
-                    String Category_Identify = getSnapshots().getSnapshot(position).getId();
-                    BorrarCategoriaFirebase(Category_Identify);
+                    String NoteIdentification = getSnapshots().getSnapshot(position).getId();
+                    BorrarNotaInFirebase(NoteIdentification);
                 }catch (Exception e){
-                    Toast.makeText(context, "Error", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context,"Error en la aplicacion", Toast.LENGTH_SHORT).show();
                 }
             }
+        });
+
+        holder.compraBtn.setOnClickListener((v) ->{
+            Intent intent = new Intent(context, Categoria_Compra.class);
+            context.startActivity(intent);
         });
     }
 
     @NonNull
     @Override
-    public ProjectAdapter.NoteViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public NoteViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.vista_categoria, parent, false);
         return new NoteViewHolder(view);
     }
 
-    void BorrarCategoriaFirebase(String Category_Identify){
+    void BorrarNotaInFirebase(String NoteIdentification){
         DocumentReference documentReference;
-        documentReference =  Utilidad.getCollectionReferenceForNotes().document(Category_Identify);
+        documentReference = Utilidad.getCollectionReferenceForCategory().document(NoteIdentification);
         documentReference.delete().addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
                 if(task.isSuccessful()){
-                    Toast.makeText(context, "Categoria eliminada", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context,"Nota eliminada", Toast.LENGTH_SHORT).show();
                 }else{
-                    Toast.makeText(context, "No se puede eliminar la categoria", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context, "No se puede eliminar la nota", Toast.LENGTH_SHORT).show();
                 }
             }
         });
-    }
+    };
 
     public class NoteViewHolder extends RecyclerView.ViewHolder {
 
-        ImageButton DeleteBtn;
+        //ImageButton DeleteBtn;
 
-        TextView title_txt, content_txt;
+        //TextView title_txt, content_txt;
+        ImageButton DeleteBtn, DeleteBtnCompra;
+        TextView titleTextView, contentTextView;
+        TextView compraBtn;
 
         public NoteViewHolder(@NonNull View itemView) {
             super(itemView);
 
-            title_txt = itemView.findViewById(R.id.titulo_categoria);
-            content_txt = itemView.findViewById(R.id.ContenidoCategoria);
+            titleTextView = itemView.findViewById(R.id.titulo_categoria);
+            contentTextView = itemView.findViewById(R.id.ContenidoCategoria);
             DeleteBtn = itemView.findViewById(R.id.DeleteCategoria);
+
+            compraBtn = itemView.findViewById(R.id.compra);
+
+
+            //title_txt = itemView.findViewById(R.id.titulo_categoria);
+            //content_txt = itemView.findViewById(R.id.ContenidoCategoria);
+            //DeleteBtn = itemView.findViewById(R.id.DeleteCategoria);
         }
     }
 }

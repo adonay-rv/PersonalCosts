@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -37,11 +38,8 @@ public class CategoryFragment extends Fragment {
         recyclerViewCategoria = view.findViewById(R.id.recyler_viewCategoria);
         searchviewCategoria1 =view.findViewById(R.id.searchviewCategoria);
 
-
-        //Abre el activity para agregar una categoria
-        addCategoryBtn.setOnClickListener((v) -> {Intent intent = new Intent(requireContext(), Categoria.class);
-            startActivity(intent);
-        });
+        addCategoryBtn.setOnClickListener((v) -> startActivity(new Intent(getActivity(), Categoria.class)));
+        setupRecyclerView();
 
         searchviewCategoria1.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
@@ -51,13 +49,13 @@ public class CategoryFragment extends Fragment {
 
             @Override
             public boolean onQueryTextChange(String newText) {
-                BuscarCategoria(newText);
+                BuscarNota(newText);
                 return false;
             }
         });
     }
 
-    void BuscarCategoria(String searchText) {
+    void BuscarNota(String searchText) {
         Query query = Utilidad.getCollectionReferenceForCategory().orderBy("title").startAt(searchText).endAt(searchText + "\uf8ff");
         FirestoreRecyclerOptions<ClassDB> options = new FirestoreRecyclerOptions.Builder<ClassDB>().setQuery(query, ClassDB.class).build();
 
@@ -73,5 +71,23 @@ public class CategoryFragment extends Fragment {
         recyclerViewCategoria.setLayoutManager(new LinearLayoutManager(getActivity()));
         projectAdapter = new ProjectAdapter(options, getActivity());
         recyclerViewCategoria.setAdapter(projectAdapter);
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        projectAdapter.startListening();
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        projectAdapter.stopListening();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        projectAdapter.notifyDataSetChanged();
     }
 }
